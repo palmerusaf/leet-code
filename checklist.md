@@ -1,0 +1,63 @@
+- [ ] Day 1
+    - [ ] 1. Implement Trie Prefix Tree
+    - [ ] 2. Number of Islands
+    - [ ] 3. Climbing Stairs
+    - [ ] 4. Unique Paths
+    - [ ] 5. Maximum Subarray
+    - [ ] 6. Insert Interval
+    - [ ] 7. Rotate Image
+    - [ ] 8. Number of 1 Bits
+    - [ ] 9. Valid Anagram
+    - [ ] 10. 3Sum 
+    - [ ] 11. Longest Substring Without Repeating Characters 
+    - [ ] 12. Search In Rotated Sorted Array 
+    - [ ] 13. Merge Two Sorted Lists 
+    - [ ] 14. Maximum Depth of Binary Tree 
+    - [ ] 15. Word Search 
+    - [ ] 16. Design Add And Search Words Data Structure 
+    - [ ] 17. Clone Graph 
+    - [ ] 18. House Robber 
+    - [ ] 19. Longest Common Subsequence 
+    - [ ] 20. Jump Game 
+- [ ] Day 2
+    - [ ] 1.
+    - [ ] 2.
+    - [ ] 3.
+    - [ ] 4.
+    - [ ] 5.
+    - [ ] 6.
+    - [ ] 7.
+    - [ ] 8.
+    - [ ] 9.
+    - [ ] 10.
+    - [ ] 11.
+    - [ ] 12.
+    - [ ] 13.
+    - [ ] 14.
+    - [ ] 15.
+    - [ ] 16.
+    - [ ] 17.
+    - [ ] 18.
+    - [ ] 19.
+    - [ ] 20.
+- [ ] Day 3
+    - [ ] 1.
+    - [ ] 2.
+    - [ ] 3.
+    - [ ] 4.
+    - [ ] 5.
+    - [ ] 6.
+    - [ ] 7.
+    - [ ] 8.
+    - [ ] 9.
+    - [ ] 10.
+    - [ ] 11.
+    - [ ] 12.
+    - [ ] 13.
+    - [ ] 14.
+    - [ ] 15.
+    - [ ] 16.
+    - [ ] 17.
+    - [ ] 18.
+    - [ ] 19.
+    - [ ] 20.
