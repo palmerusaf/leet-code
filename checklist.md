@@ -1,6 +1,6 @@
 - [ ] Day 1
-    - [ ] 1. Implement Trie Prefix Tree
-    - [ ] 2. Number of Islands
+    - [x] 1. Implement Trie Prefix Tree
+    - [x] 2. Number of Islands
     - [ ] 3. Climbing Stairs
     - [ ] 4. Unique Paths
     - [ ] 5. Maximum Subarray
