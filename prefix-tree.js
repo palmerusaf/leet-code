@@ -1,31 +1,55 @@
-var Trie = function() {
-    this.children = {}
-    this.endOfWord = false
-};
+class TrieNode {
+    constructor() {
+        this.children = {}
+        this.endOfWord = false
+    }
+}
+class Trie {
+    constructor() {
+        this.root = new TrieNode()
+    }
+    /**
+     * @param {string} word
+     * @return {void}
+     */
+    insert(word) {
+        let cur = this.root
+        for (const c of word.split('')) {
+            if (cur.children[c] === undefined) {
+                cur.children[c] = new TrieNode();
+            }
+            cur = cur.children[c]
+        }
+        cur.endOfWord = true
+    }
+    /**
+     * @param {string} word
+     * @return {boolean}
+     */
+    search(word) {
+        let cur = this.root
+        for (const c of word.split('')) {
+            if (cur.children[c] === undefined) return false
+            cur = cur.children[c]
+        }
+        return cur.endOfWord
+    }
+    /**
+     * @param {string} prefix
+     * @return {boolean}
+     */
+    startsWith(prefix) {
+        let cur = this.root
+        for (const c of prefix.split('')) {
+            if (cur.children[c] === undefined) return false
+            cur = cur.children[c]
+        }
+        return true
+    }
+}
 
-/** 
- * @param {string} word
- * @return {void}
- */
-Trie.prototype.insert = function(word) {
 
-};
 
-/** 
- * @param {string} word
- * @return {boolean}
- */
-Trie.prototype.search = function(word) {
-
-};
-
-/** 
- * @param {string} prefix
- * @return {boolean}
- */
-Trie.prototype.startsWith = function(prefix) {
-
-};
 
 /** 
  * Your Trie object will be instantiated and called as such:
