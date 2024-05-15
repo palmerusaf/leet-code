@@ -1,16 +1,16 @@
 - [ ] Day 1
     - [x] 1. Implement Trie Prefix Tree
     - [x] 2. Number of Islands
-    - [ ] 3. Climbing Stairs
-    - [ ] 4. Unique Paths
-    - [ ] 5. Maximum Subarray
-    - [ ] 6. Insert Interval
-    - [ ] 7. Rotate Image
-    - [ ] 8. Number of 1 Bits
-    - [ ] 9. Valid Anagram
-    - [ ] 10. 3Sum 
-    - [ ] 11. Longest Substring Without Repeating Characters 
-    - [ ] 12. Search In Rotated Sorted Array 
+    - [x] 3. Climbing Stairs
+    - [x] 4. Unique Paths
+    - [x] 5. Maximum Subarray
+    - [x] 6. Insert Interval
+    - [x] 7. Rotate Image
+    - [x] 8. Number of 1 Bits
+    - [x] 9. Valid Anagram
+    - [x] 10. 3Sum 
+    - [x] 11. Longest Substring Without Repeating Characters 
+    - [x] 12. Search In Rotated Sorted Array 
     - [ ] 13. Merge Two Sorted Lists 
     - [ ] 14. Maximum Depth of Binary Tree 
     - [ ] 15. Word Search 
