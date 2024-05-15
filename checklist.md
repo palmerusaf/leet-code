@@ -11,8 +11,8 @@
     - [x] 10. 3Sum 
     - [x] 11. Longest Substring Without Repeating Characters 
     - [x] 12. Search In Rotated Sorted Array 
-    - [ ] 13. Merge Two Sorted Lists 
-    - [ ] 14. Maximum Depth of Binary Tree 
+    - [x] 13. Merge Two Sorted Lists 
+    - [x] 14. Maximum Depth of Binary Tree 
     - [ ] 15. Word Search 
     - [ ] 16. Design Add And Search Words Data Structure 
     - [ ] 17. Clone Graph 
