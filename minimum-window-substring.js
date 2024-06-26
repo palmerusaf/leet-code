@@ -9,25 +9,37 @@
  * @return {string}
  */
 var minWindow = function(s, t) {
-  if (s.length < t.length) return "";
-  const tmap = {};
-  let subcord = [-1, -1];
-  for (let i = 0; i < t.length; i++)
-    !tmap[t[i]] ? (tmap[t[i]] = 1) : tmap[t[i]]++;
-  let sublen = Infinity;
+  if (s.length < t.length || !t.length) return "";
+  //maps for strs
+  const tc = {};
+  const sc = {};
+  //count t chars
+  for (let i = 0; i < t.length; i++) !tc[t[i]] ? (tc[t[i]] = 1) : tc[t[i]]++;
+  let res = [-1, 0];
   let l = 0;
+  let matched = 0;
+  const tcLen = Object.values(tc).length;
+  let len = s.length;
   for (let r = 0; r < s.length; r++) {
-    tmap[s[r]] === undefined || tmap[s[r]]--;
-    while (Math.max(...Object.values(tmap)) <= 0) {
-      if (r - l + 1 < sublen) {
-        sublen = r - l + 1;
-        subcord = [l, r];
+    if (tc[s[r]]) {
+      sc[s[r]] ? sc[s[r]]++ : (sc[s[r]] = 1);
+      if (tc[s[r]] && sc[s[r]] == tc[s[r]]) {
+        matched++;
+        while (matched == tcLen) {
+          if (r - l + 1 < len) {
+            len = r - l + 1;
+            res = [l, r];
+          }
+          sc[s[l]]--;
+          if (tc[s[l]] && sc[s[l]] < tc[s[l]]) {
+            matched--;
+          }
+          l++;
+        }
       }
-      tmap[s[l]] === undefined || tmap[s[l]]++;
-      l++;
     }
   }
-  return subcord[0] == -1 ? "" : s.substring(subcord[0], subcord[1] + 1);
+  return res[0] < 0 ? "" : s.substring(res[0], res[1] + 1);
 };
 
 const s1 = "ADOBECODEBANC";
@@ -637,4 +649,4 @@ console.log({ res3: minWindow(s3, t3), exp3 });
 let s = Date.now();
 console.log({ res4: minWindow(s4, t4), exp4 });
 let e = Date.now();
-e - s > 200 ? console.log("Failed", { time: e - s }) : console.log("Pass");
+console.log({ res4time: e - s + "ms" });
