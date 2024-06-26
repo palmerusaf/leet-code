@@ -15,24 +15,24 @@ var minWindow = function(s, t) {
   const sc = {};
   //count t chars
   for (let i = 0; i < t.length; i++) !tc[t[i]] ? (tc[t[i]] = 1) : tc[t[i]]++;
-  let res = [-1, 0];
-  let l = 0;
-  let matched = 0;
+  let tcMatch = 0;
   const tcLen = Object.values(tc).length;
-  let len = s.length;
+  let res = [-1, 0];
+  let resLen = s.length + 1;
+  let l = 0;
   for (let r = 0; r < s.length; r++) {
     if (tc[s[r]]) {
       sc[s[r]] ? sc[s[r]]++ : (sc[s[r]] = 1);
-      if (tc[s[r]] && sc[s[r]] == tc[s[r]]) {
-        matched++;
-        while (matched == tcLen) {
-          if (r - l + 1 < len) {
-            len = r - l + 1;
+      if (sc[s[r]] == tc[s[r]]) {
+        tcMatch++;
+        while (tcMatch == tcLen) {
+          if (r - l + 1 < resLen) {
+            resLen = r - l + 1;
             res = [l, r];
           }
           sc[s[l]]--;
           if (tc[s[l]] && sc[s[l]] < tc[s[l]]) {
-            matched--;
+            tcMatch--;
           }
           l++;
         }
@@ -643,6 +643,10 @@ const s4 =
 const t4 = "aAbBcCdDeEfFgGhHiIjJkKlLmMnNoOpPqQrRsStTuUvVwWxXyYzZ";
 const exp4 = t4;
 
+const s5 = "a";
+const t5 = "a";
+const exp5 = "a";
+
 console.log({ res1: minWindow(s1, t1), exp1 });
 console.log({ res2: minWindow(s2, t2), exp2 });
 console.log({ res3: minWindow(s3, t3), exp3 });
@@ -650,3 +654,4 @@ let s = Date.now();
 console.log({ res4: minWindow(s4, t4), exp4 });
 let e = Date.now();
 console.log({ res4time: e - s + "ms" });
+console.log({ res5: minWindow(s5, t5), exp5 });
