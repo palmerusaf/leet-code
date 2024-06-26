@@ -1,3 +1,7 @@
+class ListNode {
+  val = 0;
+  next = null;
+}
 /**
  * @typedef {{val:number|0,next:ListNode|null}} ListNode
  */
@@ -13,14 +17,17 @@ var reorderList = function(head) { };
  * @return {ListNode} head
  */
 function arrToLL(arr) {
-  /** @type ListNode */
-  let head;
+  let head = new ListNode();
   let iter = head;
-  arr.forEach((val) => {
-    iter.val = val;
+  for (let i = 0; i < arr.length; i++) {
+    const v = arr[i];
+    iter.val = v;
+    if (i == arr.length - 1) {
+      break;
+    }
+    iter.next = new ListNode();
     iter = iter.next;
-  });
-  iter.next = null;
+  }
   return head;
 }
 
@@ -45,5 +52,5 @@ const head2 = arrToLL([1, 2, 3, 4, 5]);
 reorderList(head2);
 const exp2 = [1, 5, 2, 4, 3];
 
-console.log({ head1, exp1 });
-console.log({ head2, exp2 });
+console.log({ res1: llToArr(head1), exp1 });
+console.log({ res2: llToArr(head2), exp2 });
