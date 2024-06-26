@@ -10,7 +10,33 @@ class ListNode {
  * @param {ListNode} head
  * @return {void} Do not return anything, modify head in-place instead.
  */
-var reorderList = function(head) { };
+var reorderList = function(head) {
+  let [slow, fast] = [head, head.next];
+  while (fast && fast.next) {
+    slow = slow.next;
+    fast = fast.next.next;
+  }
+  // reverse second half
+  let second = slow.next;
+  let prev = null;
+  slow.next = null;
+  while (second) {
+    let temp = second.next;
+    second.next = prev;
+    prev = second;
+    second = temp;
+  }
+  // merge
+  let first = head;
+  second = prev;
+  while (second) {
+    let [tmp1, tmp2] = [first.next, second.next];
+    first.next = second;
+    second.next = tmp1;
+    first = tmp1;
+    second = tmp2;
+  }
+};
 
 /**
  * @param {number[]} arr
