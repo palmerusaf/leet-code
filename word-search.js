@@ -29,11 +29,33 @@ const testData = [
     word: "ABCCED",
     exp: true,
   },
+  {
+    board: [
+      ["A", "B", "C", "E"],
+      ["S", "F", "C", "S"],
+      ["A", "D", "E", "E"],
+    ],
+    word: "ABCB",
+    exp: false,
+  },
+  {
+    board: [
+      ["A", "B", "C", "E"],
+      ["S", "F", "C", "S"],
+      ["A", "D", "E", "E"],
+    ],
+    word: "SEE",
+    exp: true,
+  },
 ];
 
 let testNum = 1;
 for (const { board, word, exp } of testData) {
-  console.log("Test", testNum);
+  if (exist(board, word) === exp) {
+    console.log(`Passed Test ${testNum}`);
+  } else {
+    console.log(`Failed Test ${testNum}`);
+    // console.log({ board, word, exp });
+  }
   testNum++;
-  exist(board, word) === exp ? console.log("Passed") : console.log("Failed");
 }
