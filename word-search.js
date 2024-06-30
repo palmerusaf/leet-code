@@ -4,6 +4,7 @@
  * @return {boolean}
  */
 var exist = function(board, word) {
+  const visited = {};
   for (let r = 0; r < board.length; r++) {
     for (let c = 0; c < board[r].length; c++) {
       if (dfs(r, c, 0)) {
@@ -14,8 +15,18 @@ var exist = function(board, word) {
   return false;
 
   function dfs(r, c, i) {
-    if (!board[r][c]) return false;
+    if (!board[r] || !board[r][c]) return false;
     if (board[r][c] !== word[i]) return false;
+    if (visited[`${r},${c}`]) return false;
+    if (i === word.length - 1) return true;
+    visited[`${r},${c}`] = true;
+    const res =
+      dfs(r + 1, c, i + 1) ||
+      dfs(r - 1, c, i + 1) ||
+      dfs(r, c + 1, i + 1) ||
+      dfs(r, c - 1, i + 1);
+    visited[`${r},${c}`] = false;
+    return res;
   }
 };
 
@@ -37,6 +48,15 @@ const testData = [
     ],
     word: "ABCB",
     exp: false,
+  },
+  {
+    board: [
+      ["C", "A", "A"],
+      ["A", "A", "A"],
+      ["B", "C", "D"],
+    ],
+    word: "AAB",
+    exp: true,
   },
   {
     board: [
