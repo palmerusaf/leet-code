@@ -4,56 +4,36 @@
  * @return {boolean}
  */
 var exist = function(board, word) {
-  const [ROWS, COLS] = [board.length, board[0].length]
-  const visited = new Set();
-  function dfs(r, c, i) {
-    if (i === word.length - 1) return true
-    if (
-      r < 0 ||
-      c < 0 ||
-      r > ROWS ||
-      c > COLS ||
-      word[i] !== board[r][c] ||
-      visited.has(`${r},${c}`)
-    ) return false
-    visited.add(`${r},${c}`)
-    console.log({ visitList: visited, thisSet: [r, c], hasVistited: visited.has(`${r},${c}`) })
-    const res = (
-      dfs(r + 1, c, i + 1) ||
-      dfs(r - 1, c, i + 1) ||
-      dfs(r, c + 1, i + 1) ||
-      dfs(r, c - 1, i + 1)
-    )
-    visited.delete(`${r},${c}`)
-    return res
-  }
-  for (let r = 0; r < ROWS; r++) {
-    for (let c = 0; c < COLS; c++) {
-      if (dfs(r, c, 0))
-        return true
+  for (let r = 0; r < board.length; r++) {
+    for (let c = 0; c < board[r].length; c++) {
+      if (dfs(r, c, 0)) {
+        return true;
+      }
     }
   }
-  return false
+  return false;
+
+  function dfs(r, c, i) {
+    if (!board[r][c]) return false;
+    if (board[r][c] !== word[i]) return false;
+  }
 };
 
-/*
-const board = [
-  ["A", "B", "C", "E"],
-  ["S", "F", "C", "S"],
-  ["A", "D", "E", "E"],
-]
-const word = "SEE"
-console.log(
-  exist(board, word)
-)
-//*/
+const testData = [
+  {
+    board: [
+      ["A", "B", "C", "E"],
+      ["S", "F", "C", "S"],
+      ["A", "D", "E", "E"],
+    ],
+    word: "ABCCED",
+    exp: true,
+  },
+];
 
-const board = [
-  ["A", "B", "C", "E"],
-  ["S", "F", "C", "S"],
-  ["A", "D", "E", "E"],
-]
-const word = "ABCB"
-console.log(
-  exist(board, word)
-)
+let testNum = 1;
+for (const { board, word, exp } of testData) {
+  console.log("Test", testNum);
+  testNum++;
+  exist(board, word) === exp ? console.log("Passed") : console.log("Failed");
+}
