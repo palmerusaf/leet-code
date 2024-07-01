@@ -23,11 +23,10 @@ class WordDictionary {
     for (const c of word) {
       if (iter.children[c] === undefined) {
         iter.children[c] = new TrieNode();
-      } else {
-        iter = iter.children[c];
       }
-      iter.word = true;
+      iter = iter.children[c];
     }
+    iter.word = true;
     return null;
   }
   /**
@@ -44,9 +43,8 @@ class WordDictionary {
             if (dfs(i + 1, child)) return true;
           }
         }
-        if (iter.children[word[i]] === undefined) {
-          return false;
-        }
+        if (iter.children[word[i]] === undefined) return false;
+        iter = iter.children[word[i]];
       }
       return iter.word;
     }
