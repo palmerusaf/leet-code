@@ -13,16 +13,14 @@ var pacificAtlantic = function(heights) {
   }
   return res;
   function goesPac(r, c) {
-    if (heights[r - 1] === undefined) return true;
-    if (heights[r][c - 1] === undefined) return true;
+    if (r === 0 || c === 0) return true;
     const curr = heights[r][c];
     if (curr < heights[r - 1][c] && curr < heights[r][c - 1]) return false;
 
     return goesPac(r - 1, c) || goesPac(r, c - 1);
   }
   function goesAtl(r, c) {
-    if (heights[r + 1] === undefined) return true;
-    if (heights[r][c + 1] === undefined) return true;
+    if (r === heights.length - 1 || c === heights[r].length - 1) return true;
     const curr = heights[r][c];
     if (curr < heights[r + 1][c] && curr < heights[r][c + 1]) return false;
 
