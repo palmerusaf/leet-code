@@ -2,33 +2,80 @@
  * @param {number[][]} heights
  * @return {number[][]}
  */
-var pacificAtlantic = function(heights) {
-  const res = [];
+var pacificAtlantic = function (heights) {
+  /** @description pac map */
+  const pmp = [];
+  const atl = [];
+  const dirs = [
+    [1, 0],
+    [0, 1],
+    [-1, 0],
+    [0, -1],
+  ];
   for (let r = 0; r < heights.length; r++) {
     for (let c = 0; c < heights[r].length; c++) {
-      if (goesPac(r, c) && goesAtl(r, c)) {
-        res.push([r, c]);
-      }
+      if (goesPac(r, c)) pmp.push([r, c]);
     }
   }
+  const res = [];
+  for (const [r, c] of pmp) {
+    if (goesAtl(r, c)) res.push([r, c]);
+  }
+  function goesPac(r, c, prevH, vis = new Set()) {
+    if (r < 0 || c < 0) return true;
+    if (heights[r] === undefined || heights[r][c] === undefined) return false;
+    if (vis.has(`${r},${c}`)) return false;
+    vis.add(`${r},${c}`);
+    const currH = heights[r][c];
+    prevH = prevH ?? currH;
+    if (currH > prevH) return false;
+    for (const [rd, cd] of dirs) {
+      const [nd, nc] = [rd + r, cd + c];
+      if (goesPac(nd, nc, currH, vis)) return true;
+    }
+    vis.delete(`${r},${c}`);
+    return false;
+  }
+  function goesAtl(r, c, prevH, vis = new Set()) {
+    if (
+      r > heights.length - 1 ||
+      (heights[r] !== undefined && c > heights[r].length - 1)
+    )
+      return true;
+    if (!heights[r] || !heights[r][c]) return false;
+    if (vis.has(`${r},${c}`)) return false;
+    vis.add(`${r},${c}`);
+    const currH = heights[r][c];
+    prevH = prevH ?? currH;
+    if (currH > prevH) return false;
+    for (const [rd, cd] of dirs) {
+      const [nd, nc] = [rd + r, cd + c];
+      if (goesAtl(nd, nc, currH, vis)) return true;
+    }
+    vis.delete(`${r},${c}`);
+    return false;
+  }
   return res;
-  function goesPac(r, c) {
-    if (r === 0 || c === 0) return true;
-    const curr = heights[r][c];
-    if (curr < heights[r - 1][c] && curr < heights[r][c - 1]) return false;
-
-    return goesPac(r - 1, c) || goesPac(r, c - 1);
-  }
-  function goesAtl(r, c) {
-    if (r === heights.length - 1 || c === heights[r].length - 1) return true;
-    const curr = heights[r][c];
-    if (curr < heights[r + 1][c] && curr < heights[r][c + 1]) return false;
-
-    return goesAtl(r + 1, c) || goesAtl(r, c + 1);
-  }
 };
 
 [
+  {
+    input: [
+      [3, 3, 3],
+      [3, 1, 3],
+      [0, 2, 4],
+    ],
+    exp: [
+      [0, 0],
+      [0, 1],
+      [0, 2],
+      [1, 0],
+      [1, 2],
+      [2, 0],
+      [2, 1],
+      [2, 2],
+    ],
+  },
   {
     input: [
       [1, 2, 2, 3, 5],
