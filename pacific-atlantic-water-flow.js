@@ -42,7 +42,7 @@ var pacificAtlantic = function (heights) {
       (heights[r] !== undefined && c > heights[r].length - 1)
     )
       return true;
-    if (!heights[r] || !heights[r][c]) return false;
+    if (heights[r] === undefined || heights[r][c] === undefined) return false;
     if (vis.has(`${r},${c}`)) return false;
     vis.add(`${r},${c}`);
     const currH = heights[r][c];
@@ -58,24 +58,49 @@ var pacificAtlantic = function (heights) {
   return res;
 };
 
-[
+const test = {
+  input: [
+    [3, 3, 3],
+    [3, 1, 3],
+    [0, 2, 4],
+  ],
+  exp: [
+    [0, 0],
+    [0, 1],
+    [0, 2],
+    [1, 0],
+    [1, 2],
+    [2, 0],
+    [2, 1],
+    [2, 2],
+  ],
+};
+/** @type {typeof test[]} */
+const tests = [
   {
     input: [
-      [3, 3, 3],
-      [3, 1, 3],
-      [0, 2, 4],
+      [1, 2, 3, 4],
+      [12, 13, 14, 5],
+      [11, 16, 15, 6],
+      [10, 9, 8, 7],
     ],
     exp: [
-      [0, 0],
-      [0, 1],
-      [0, 2],
+      [0, 3],
       [1, 0],
+      [1, 1],
       [1, 2],
+      [1, 3],
       [2, 0],
       [2, 1],
       [2, 2],
+      [2, 3],
+      [3, 0],
+      [3, 1],
+      [3, 2],
+      [3, 3],
     ],
   },
+  test,
   {
     input: [
       [1, 2, 2, 3, 5],
@@ -110,8 +135,13 @@ var pacificAtlantic = function (heights) {
       [2, 2],
     ],
   },
-].forEach(runTest);
+];
 
+tests.forEach(runTest);
+
+/**
+ * @param {test} param0
+ */
 function runTest({ input, exp }, index) {
   index++;
   const res = pacificAtlantic(input);
@@ -120,6 +150,12 @@ function runTest({ input, exp }, index) {
   } else {
     console.log("Test", index, "Failed");
     console.log({ input });
-    console.table({ res, exp });
+    const extra = res.filter(
+      ([r, c]) => exp.findIndex(([rr, cc]) => rr === r && cc === c) === -1,
+    );
+    const missing = exp.filter(
+      ([r, c]) => res.findIndex(([rr, cc]) => rr === r && cc === c) === -1,
+    );
+    console.table({ missing, extra });
   }
 }
