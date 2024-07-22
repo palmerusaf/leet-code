@@ -66,6 +66,17 @@ var pacificAtlantic = function(heights) {
   return res;
 };
 
+function longTest(numEl) {
+  const input = [];
+  for (let r = 0; r < numEl; r++) {
+    input.push([]);
+    for (let c = 0; c < numEl; c++) {
+      input[r].push(Math.floor(Math.random() * 200));
+    }
+  }
+  return { input, exp: pacificAtlantic(input) };
+}
+
 const test = {
   input: [
     [3, 3, 3],
@@ -85,6 +96,7 @@ const test = {
 };
 /** @type {typeof test[]} */
 const tests = [
+  longTest(400),
   {
     // prettier-ignore
     input: [
@@ -181,7 +193,14 @@ tests.forEach(runTest);
  */
 function runTest({ input, exp }, index) {
   index++;
+  const s = Date.now();
   const res = pacificAtlantic(input);
+  const runTime = Date.now() - s;
+  if (runTime > 600) {
+    console.log("Test", index, "Failed");
+    console.log({ runTime });
+    return;
+  }
   if (res.sort().toString() === exp.sort().toString()) {
     console.log("Test", index, "Passed");
   } else {
