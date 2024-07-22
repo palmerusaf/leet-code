@@ -5,7 +5,6 @@
 var pacificAtlantic = function (heights) {
   /** @description pac map */
   const pmp = [];
-  const atl = [];
   const dirs = [
     [1, 0],
     [0, 1],
@@ -43,11 +42,11 @@ var pacificAtlantic = function (heights) {
     )
       return true;
     if (heights[r] === undefined || heights[r][c] === undefined) return false;
-    if (vis.has(`${r},${c}`)) return false;
-    vis.add(`${r},${c}`);
     const currH = heights[r][c];
     prevH = prevH ?? currH;
     if (currH > prevH) return false;
+    if (vis.has(`${r},${c}`)) return false;
+    vis.add(`${r},${c}`);
     for (const [rd, cd] of dirs) {
       const [nd, nc] = [rd + r, cd + c];
       if (goesAtl(nd, nc, currH, vis)) return true;
