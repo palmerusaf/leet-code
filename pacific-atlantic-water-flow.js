@@ -3,17 +3,15 @@
  * @return {number[][]}
  */
 var pacificAtlantic = function (heights) {
-  /** @description pac map */
-  const pacMem = {};
-  const atlMem = {};
-  const pmp = [];
+  const pacMem = new Map();
+  const pacList = [];
   for (let r = 0; r < heights.length; r++) {
     for (let c = 0; c < heights[r].length; c++) {
-      if (goesPac(r, c)) pmp.push([r, c]);
+      if (goesPac(r, c)) pacList.push([r, c]);
     }
   }
   const res = [];
-  for (const [r, c] of pmp) {
+  for (const [r, c] of pacList) {
     if (goesAtl(r, c)) res.push([r, c]);
   }
   function goesPac(r, c, prevH, vis = new Set()) {
@@ -23,7 +21,7 @@ var pacificAtlantic = function (heights) {
     const currH = heights[r][c];
     prevH = prevH ?? currH;
     if (currH > prevH) return false;
-    if (pacMem[r + "," + c] !== undefined) return pacMem[r + "," + c];
+    if (pacMem.has(`${r},${c}`)) return pacMem.get(`${r},${c}`);
 
     if (vis.has(`${r},${c}`)) return false;
     vis.add(`${r},${c}`);
@@ -34,7 +32,7 @@ var pacificAtlantic = function (heights) {
       goesPac(r, c - 1, currH, vis) ||
       goesPac(r, c + 1, currH, vis);
     vis.delete(`${r},${c}`);
-    pacMem[r + "," + c] = res;
+    pacMem.set(`${r},${c}`, res);
     return res;
   }
   function goesAtl(r, c, prevH, vis = new Set()) {
