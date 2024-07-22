@@ -2,63 +2,40 @@
  * @param {number[][]} heights
  * @return {number[][]}
  */
-var pacificAtlantic = function (heights) {
-  const pacMem = new Map();
-  const pacList = [];
-  for (let r = 0; r < heights.length; r++) {
-    for (let c = 0; c < heights[r].length; c++) {
-      if (goesPac(r, c)) pacList.push([r, c]);
+const pacificAtlantic = function (heights) {
+  function dfs(vis, r, c, prevH = -Infinity) {
+    const currH = heights[r]?.[c];
+    if (
+      currH !== undefined &&
+      vis[`${r}-${c}`] === undefined &&
+      currH >= prevH
+    ) {
+      vis[`${r}-${c}`] = "visited";
+      dfs(vis, r + 1, c, currH);
+      dfs(vis, r - 1, c, currH);
+      dfs(vis, r, c + 1, currH);
+      dfs(vis, r, c - 1, currH);
     }
   }
+  const pacVis = {};
+  const goesPac = (r, c) => dfs(pacVis, r, c);
+  const atlVis = {};
+  const goesAtl = (r, c) => dfs(atlVis, r, c);
+  for (let c = 0; c < heights[0].length; c++) {
+    goesPac(0, c);
+    goesAtl(heights.length - 1, c);
+  }
+  for (let r = 0; r < heights.length; r++) {
+    goesPac(r, 0);
+    goesAtl(r, heights[0].length - 1);
+  }
   const res = [];
-  for (const [r, c] of pacList) {
-    if (goesAtl(r, c)) res.push([r, c]);
-  }
-  function goesPac(r, c, prevH, vis = new Set()) {
-    if (r < 0 || c < 0) return true;
-    if (heights[r] === undefined || heights[r][c] === undefined) return false;
-
-    const currH = heights[r][c];
-    prevH = prevH ?? currH;
-    if (currH > prevH) return false;
-    if (pacMem.has(`${r},${c}`)) return pacMem.get(`${r},${c}`);
-
-    if (vis.has(`${r},${c}`)) return false;
-    vis.add(`${r},${c}`);
-
-    const res =
-      goesPac(r - 1, c, currH, vis) ||
-      goesPac(r + 1, c, currH, vis) ||
-      goesPac(r, c - 1, currH, vis) ||
-      goesPac(r, c + 1, currH, vis);
-    vis.delete(`${r},${c}`);
-    pacMem.set(`${r},${c}`, res);
-    return res;
-  }
-  function goesAtl(r, c, prevH, vis = new Set()) {
-    if (
-      r > heights.length - 1 ||
-      (heights[r] !== undefined && c > heights[r].length - 1)
-    )
-      return true;
-
-    if (heights[r] === undefined || heights[r][c] === undefined) return false;
-
-    const currH = heights[r][c];
-    prevH = prevH ?? currH;
-    if (currH > prevH) return false;
-
-    if (vis.has(`${r},${c}`)) return false;
-    vis.add(`${r},${c}`);
-
-    const res =
-      goesAtl(r - 1, c, currH, vis) ||
-      goesAtl(r + 1, c, currH, vis) ||
-      goesAtl(r, c - 1, currH, vis) ||
-      goesAtl(r, c + 1, currH, vis);
-    vis.delete(`${r},${c}`);
-
-    return res;
+  for (const cord in atlVis) {
+    if (pacVis[cord] !== undefined) {
+      const arr = cord.split("-");
+      const [row, col] = arr;
+      res.push([+row, +col]);
+    }
   }
   return res;
 };
@@ -193,6 +170,7 @@ function runTest({ input, exp }, index) {
   const s = Date.now();
   const res = pacificAtlantic(input);
   const runTime = Date.now() - s;
+  console.log({ runTime });
   if (runTime > 600) {
     console.log("Test", index, "Failed");
     console.log({ runTime });
