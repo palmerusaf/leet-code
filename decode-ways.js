@@ -3,19 +3,23 @@
  * @return {number}
  */
 var numDecodings = function (s) {
-  if (s[0] === "0") return 0;
-  let count = 1;
-  for (let i = 0; i < s.length; i++) {
-    if (s[i] === "0") continue;
-    const r = i + 1;
-    if (r < s.length) {
-      const sub = +s.slice(i, r + 1);
-      if (sub <= 26) {
-        count++;
-      }
+  const dp = {};
+  for (const c of s) dp[c] = 1;
+  function dfs(i) {
+    if (s[i] === "0") return 0;
+    if (dp[i] !== undefined) return dp[i];
+    let res = dfs(i + 1);
+    const nextChar = s[i + 1];
+    if (
+      i + 1 < s.length &&
+      (s[i] === "1" || (s[i] === "2" && nextChar.match(/[0-6]/)))
+    ) {
+      res += dfs(i + 2);
     }
+    dp[i] = res;
+    return res;
   }
-  return count;
+  return dfs(0);
 };
 
 const test = {
