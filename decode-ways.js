@@ -4,7 +4,7 @@
  */
 var numDecodings = function (s) {
   const dp = {};
-  for (const c of s) dp[c] = 1;
+  dp[s.length] = 1;
   function dfs(i) {
     if (s[i] === "0") return 0;
     if (dp[i] !== undefined) return dp[i];
