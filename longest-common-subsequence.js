@@ -20,13 +20,17 @@ import { runTest } from "./runTest.js";
  * @return {number}
  */
 function longestCommonSubsequence(text1, text2) {
-  /** @param {number} n1 @param {number} n2 */
-  function dfs(n1, n2) {
-    if (n1 > text1.length - 1 || n2 > text2.length - 1) return 0;
-    if (text1[n1] === text2[n2]) {
-      return 1 + dfs(n1 + 1, n2 + 1);
+  const dp = Array(text1.length + 1)
+    .fill()
+    .map(() => Array(text2.length + 1).fill(0));
+  for (let i = text1.length - 1; i >= 0; i--) {
+    for (let j = text2.length - 1; j >= 0; j--) {
+      if (text1[i] == text2[j]) {
+        dp[i][j] = 1 + dp[i + 1][j + 1];
+      } else {
+        dp[i][j] = Math.max(dp[i][j + 1], dp[i + 1][j]);
+      }
     }
-    return Math.max(dfs(n1, n2 + 1), dfs(n1 + 1, n2));
   }
-  return dfs(0, 0);
+  return dp[0][0];
 }
