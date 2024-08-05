@@ -23,21 +23,30 @@ import { runTest } from "./runTest.js";
 
 /** @param {number[]} nums @return {boolean} */
 function canJump(nums) {
-  const mem = {};
-  function dfs(i) {
-    if (mem[i] !== undefined) return mem[i];
-    if (nums[i] + i >= nums.length - 1) {
-      mem[i] = true;
-      return true;
-    }
-    for (let j = i + 1; j <= nums[i] + i; j++) {
-      if (dfs(j)) {
-        mem[i] = true;
-        return true;
-      }
-    }
-    mem[i] = false;
-    return false;
+  let currIn = nums.length - 1;
+  for (let i = nums.length - 1; i >= 0; i--) {
+    if (i + nums[i] >= currIn) currIn = i;
   }
-  return dfs(0);
+  return currIn === 0;
 }
+
+// /** @param {number[]} nums @return {boolean} */
+// function canJump(nums) {
+//   const mem = {};
+//   function dfs(i) {
+//     if (mem[i] !== undefined) return mem[i];
+//     if (nums[i] + i >= nums.length - 1) {
+//       mem[i] = true;
+//       return true;
+//     }
+//     for (let j = i + 1; j <= nums[i] + i; j++) {
+//       if (dfs(j)) {
+//         mem[i] = true;
+//         return true;
+//       }
+//     }
+//     mem[i] = false;
+//     return false;
+//   }
+//   return dfs(0);
+// }
