@@ -41,22 +41,15 @@ import { runTest } from "./runTest.js";
 
 /** @param {number[][]} intervals @return {number} */
 function eraseOverlapIntervals(intervals) {
-  intervals.sort(([a], [b]) => a - b);
+  intervals.sort();
   let count = 0;
-  let l = 0;
-  const between = (s, e, i) => s < i && i < e;
-  for (let r = 1; r < intervals.length; r++) {
-    const [lS, lE] = intervals[l];
-    const [rS, rE] = intervals[r];
-    if (
-      between(lS, lE, rS) ||
-      between(rS, rE, lE) ||
-      (lS === rS && lE === rE)
-    ) {
-      const lLen = lE - lS;
-      const rLen = rE - rS;
-      if (lLen > rLen) l = r;
+  let prevEnd = intervals[0][1];
+  for (const [currStart, currEnd] of intervals.slice(1)) {
+    if (currStart >= prevEnd) {
+      prevEnd = currEnd;
+    } else {
       count++;
+      prevEnd = Math.min(prevEnd, currEnd);
     }
   }
   return count;
