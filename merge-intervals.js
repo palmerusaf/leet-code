@@ -2,6 +2,13 @@ import { runTest } from "./runTest.js";
 [
   {
     intervals: [
+      [1, 4],
+      [0, 4],
+    ],
+    exp: [[0, 4]],
+  },
+  {
+    intervals: [
       [1, 3],
       [2, 6],
       [8, 10],
@@ -20,9 +27,32 @@ import { runTest } from "./runTest.js";
     ],
     exp: [[1, 5]],
   },
-].forEach(({ exp, intervals }, i) =>
-  runTest({ exp, index: i, res: merge(intervals) }),
+].forEach(
+  ({ exp, intervals }, i) =>
+    runTest({
+      exp: exp.toString(),
+      index: i,
+      res: merge(intervals).toString(),
+    }),
+  // runTest({ exp: exp, index: i, res: merge(intervals) }),
 );
 
 /** @param {number[][]} intervals @return {number[][]} */
-function merge(intervals) {}
+function merge(intervals) {
+  const res = [];
+  let l = 0;
+  for (let r = 1; r < intervals.length + 1; r++) {
+    let [s, e] = intervals[l];
+    while (
+      r < intervals.length &&
+      (intervals[r][0] <= e || s >= intervals[r][0])
+    ) {
+      s = Math.min(s, intervals[r][0]);
+      e = Math.max(e, intervals[r][1]);
+      r++;
+    }
+    res.push([s, e]);
+    l = r;
+  }
+  return res;
+}
