@@ -29,7 +29,7 @@ import { runTest } from "./runTest.js";
 function spiralOrder(matrix) {
   const res = [];
   let [startRow, startCol, row, col] = Array(4).fill(0);
-  let [endRow, endCol] = Array(2).fill(matrix.length - 1);
+  let [endRow, endCol] = [matrix.length - 1, matrix[0].length - 1];
   while (startRow <= endRow && startCol <= endCol) {
     // right
     while (col <= endCol) {
