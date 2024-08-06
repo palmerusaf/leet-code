@@ -1,6 +1,7 @@
 import { runTest } from "./runTest.js";
 
 [
+  { matrix: [[3], [2]], exp: [3, 2] },
   {
     matrix: [
       [1, 2, 3],
@@ -59,6 +60,9 @@ function spiralOrder(matrix) {
     row++;
     col++;
     startCol++;
+  }
+  if (matrix.length !== matrix[0].length) {
+    res.pop();
   }
   return res;
 }
