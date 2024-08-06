@@ -3,6 +3,16 @@ import { runTest } from "./runTest.js";
   {
     intervals: [
       [1, 4],
+      [0, 0],
+    ],
+    exp: [
+      [0, 0],
+      [1, 4],
+    ],
+  },
+  {
+    intervals: [
+      [1, 4],
       [0, 4],
     ],
     exp: [[0, 4]],
@@ -45,7 +55,8 @@ function merge(intervals) {
     let [s, e] = intervals[l];
     while (
       r < intervals.length &&
-      (intervals[r][0] <= e || s >= intervals[r][0])
+      ((intervals[r][0] <= e && intervals[r][1] >= s) ||
+        (s >= intervals[r][0] && e <= intervals[r][1]))
     ) {
       s = Math.min(s, intervals[r][0]);
       e = Math.max(e, intervals[r][1]);
