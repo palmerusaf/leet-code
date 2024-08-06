@@ -2,6 +2,16 @@ import { runTest } from "./runTest.js";
 [
   {
     intervals: [
+      [2, 3],
+      [4, 5],
+      [6, 7],
+      [8, 9],
+      [1, 10],
+    ],
+    exp: [[1, 10]],
+  },
+  {
+    intervals: [
       [1, 4],
       [0, 0],
     ],
@@ -42,9 +52,7 @@ import { runTest } from "./runTest.js";
     runTest({
       exp: exp.toString(),
       index: i,
-      res: merge(intervals)
-        .sort(([a], [b]) => a - b)
-        .toString(),
+      res: merge(intervals).toString(),
     }),
   // runTest({ exp: exp, index: i, res: merge(intervals) }),
 );
@@ -53,6 +61,7 @@ import { runTest } from "./runTest.js";
 function merge(intervals) {
   const res = [];
   let l = 0;
+  intervals.sort(([a], [b]) => a - b);
   for (let r = 1; r < intervals.length + 1; r++) {
     let [s, e] = intervals[l];
     while (
