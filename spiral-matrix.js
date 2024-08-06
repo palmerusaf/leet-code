@@ -30,7 +30,7 @@ function spiralOrder(matrix) {
   const res = [];
   let [startRow, startCol, row, col] = Array(4).fill(0);
   let [endRow, endCol] = Array(2).fill(matrix.length - 1);
-  while (startRow <= endCol && startCol <= endRow) {
+  while (startRow <= endRow && startCol <= endCol) {
     // right
     while (col <= endCol) {
       res.push(matrix[row][col++]);
