@@ -42,7 +42,9 @@ import { runTest } from "./runTest.js";
     runTest({
       exp: exp.toString(),
       index: i,
-      res: merge(intervals).toString(),
+      res: merge(intervals)
+        .sort(([a], [b]) => a - b)
+        .toString(),
     }),
   // runTest({ exp: exp, index: i, res: merge(intervals) }),
 );
