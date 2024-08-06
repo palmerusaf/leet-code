@@ -3,6 +3,15 @@ import { runTest } from "./runTest.js";
 [
   {
     intervals: [
+      [-1, 1],
+      [10, 11],
+      [12, 14],
+      [3, 4],
+    ],
+    exp: 0,
+  },
+  {
+    intervals: [
       [0, 2],
       [1, 3],
       [2, 4],
@@ -41,7 +50,7 @@ import { runTest } from "./runTest.js";
 
 /** @param {number[][]} intervals @return {number} */
 function eraseOverlapIntervals(intervals) {
-  intervals.sort();
+  intervals.sort(([a], [b]) => a - b);
   let count = 0;
   let prevEnd = intervals[0][1];
   for (const [currStart, currEnd] of intervals.slice(1)) {
